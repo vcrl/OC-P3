@@ -1,5 +1,4 @@
 import pygame
-import os
 
 class Labyrinthe():
     def __init__(self):
@@ -12,14 +11,9 @@ class Labyrinthe():
                 self.map_data.append(line)
                 for row, tiles in enumerate(self.map_data):
                     for col, tile in enumerate(tiles):
-                        if tile == "1":
-                            self.map[f"{row}, {col}"] = "wall"
-                        elif tile == ".":
-                            self.map[f"{row}, {col}"] = "ground"
-                        elif tile == "x":
-                            self.map[f"{row}, {col}"] = "player"
-
-
-lab = Labyrinthe()
-lab.loadMap()
-print(lab.map)
+                        if tile == "1": # Mur
+                            self.map[f"{row}, {col}"] = "wall" 
+                        elif tile == ".": # Chemin
+                            self.map[f"{row}, {col}"] = "ground" 
+                        elif tile == "x": # Joueur
+                            self.map[f"{row}, {col}"] = "player" 
