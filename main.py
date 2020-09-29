@@ -22,27 +22,28 @@ class Labyrinthe():
                 for row, tiles in enumerate(self.map_data):
                     for col, tile in enumerate(tiles):
                         if tile == "1": # Mur
-                            self.map[f"{row}, {col}"] = "mur" 
+                            self.map[row, col] = "mur" 
                         elif tile == ".": # Chemin
-                            self.map[f"{row}, {col}"] = "chemin" 
+                            self.map[row, col] = "chemin" 
                         elif tile == "X": # McGyver
-                            self.map[f"{row}, {col}"] = "player" 
+                            self.map[row, col] = "player" 
                             self.player_x = row
                             self.player_y = col
                         elif tile == "G": # Gardien
-                            self.map[f"{row}, {col}"] = "gardien" 
+                            self.map[row, col] = "gardien" 
                         elif tile == "S": # Seringue
-                            self.map[f"{row},{col}"] = "seringue"
+                            self.map[row,col] = "seringue"
                         elif tile == "E": # Ether
-                            self.map[f"{row},{col}"] = "ether"
+                            self.map[row,col] = "ether"
                         elif tile == "A": # Aiguille
-                            self.map[f"{row},{col}"] = "aiguille"
+                            self.map[row,col] = "aiguille"
+                
 
 class Player():
     def __init__(self):
-        Map = Labyrinthe()
-        self.x = Map.player_x
-        self.y = Map.player_y
+        self.map = Labyrinthe()
+        self.x = self.map.player_x
+        self.y = self.map.player_y
 
         self.inventory = list()
     
@@ -59,12 +60,14 @@ class Player():
         elif key == "d":
             self.x += 1
             print(self.x, self.y)
+    
+    def solidTile(self):
+        for x, y in self.map.map:
+            print(x, y)
 
     def addtoInventory(self, item):
         pass
 
 player = Player()
 player.movePlayer("z")
-player.movePlayer("z")
-player.movePlayer("q")
-
+player.solidTile()
