@@ -1,14 +1,7 @@
-from classes.map import Labyrinthe
+from classes.engine import Engine
 
 if __name__ == "__main__":
     # Boucle du jeu
-    running = True
-    Map = Labyrinthe()
-    while running:
-        print(Map.player.x, Map.player.y)
-        inp = input("Clé: ")
-        if inp != "inv":
-            Map.movePlayer(key=inp)
-        else:
-            print(Map.player.inventory)
+    engine = Engine()
+    engine.run()
 
