@@ -1,15 +1,19 @@
-from .player import Player
+from .sprites import Player, Wall, Item
+from .settings import *
+import pygame
 import os
 
 class Labyrinthe():
-    def __init__(self):
+    def __init__(self, game):
+        self.game = game
         self.map = dict()
         self.map_data = list()
-        self.player = Player(0,0)
+        self.player = None
         #Chargement de la map à chaque instance
         self.loadMap()
 
     def loadMap(self):
+        "On génère la map à partir de labyrinthe.txt"
         current_dir = os.path.dirname(__file__)
         with open(os.path.join(current_dir, "labyrinthe.txt"), "r") as f:
             for line in f:
@@ -17,28 +21,49 @@ class Labyrinthe():
                 for row, tiles in enumerate(self.map_data):
                     for col, tile in enumerate(tiles):
                         if tile == "1": # Mur
-                            self.map[row, col] = "mur" 
-                        elif tile == ".": # Chemin
-                            self.map[row, col] = "chemin" 
+                            self.map[row, col] = "mur"
+                            self.wall = Wall(row, col) 
+                            self.game.all_sprites.add(self.wall) 
+                            self.game.walls.add(self.wall)
                         elif tile == "P": # McGyver
-                            self.player = Player(row, col)
-                            #self.map[row, col] = "player" 
+                            self.playerRandomPos(row, col)
                         elif tile == "G": # Gardien
                             self.map[row, col] = "gardien" 
-                        elif tile == "S": # Seringue
-                            self.map[row,col] = "seringue"
-                        elif tile == "E": # Ether
-                            self.map[row,col] = "ether"
-                        elif tile == "A": # Aiguille
-                            self.map[row,col] = "aiguille"
+                        elif tile == "I": # Item
+                            self.itemsRandomPos(row, col)
 
+    # Méthodes liées à l'environnement
+    def itemsRandomPos(self, x, y):
+        "Méthode pour spawn les items aléatoirement sur la map, sans conflit avec les objets"
+        item_spawned = False
+        print("itemrandompos")
+        while not item_spawned:
+            self.item = Item(x, y)
+            conflict = pygame.sprite.spritecollide(self.item, self.game.all_sprites, False)
+            if  len(conflict) == 0:
+                self.game.all_sprites.add(self.item)
+                self.game.items.add(self.item)
+                item_spawned = True
+
+    # Méthodes liées au joueur
+    def playerRandomPos(self, x, y):
+        "Méthode pour spawn le joueur aléatoirement sur la map, sans conflit avec les objets"
+        player_spawned = False
+        while not player_spawned:
+            self.player = Player(x, y)
+            conflict = pygame.sprite.spritecollide(self.player, self.game.walls, False)
+            if  len(conflict) == 0:
+                self.game.all_sprites.add(self.player)
+                player_spawned = True
+    
+    # ERREUR: Le code n'a pas l'air d'aller jusque là. Erreur plus haut?
     def moveTo(self, dx=0, dy=0):
-        dir_x = self.player.x + dx
-        dir_y = self.player.y + dy
+        dir_x = self.player.rect.x + dx
+        dir_y = self.player.rect.y + dy
         
         if self.map[dir_x, dir_y] != "mur":
-            self.player.x += dx
-            self.player.y += dy
+            self.player.rect.x += dx
+            self.player.rect.y += dy
 
         if "seringue" not in self.player.inventory:
             if self.map[dir_x, dir_y] == "seringue":
@@ -52,14 +77,14 @@ class Labyrinthe():
 
     def movePlayer(self, key):
         if key == "q":
-            self.moveTo(dy=-1)
+            self.moveTo(dy=-TILESIZE)
             print(self.player.x, self.player.y)
         if key == "d":
-            self.moveTo(dy=1)
+            self.moveTo(dy=TILESIZE)
             print(self.player.x, self.player.y)
         if key == "s":
-            self.moveTo(dx=1)
+            self.moveTo(dx=TILESIZE)
             print(self.player.x, self.player.y)
         if key == "z":
-            self.moveTo(dx=-1)
+            self.moveTo(dx=-TILESIZE)
             print(self.player.x, self.player.y)
