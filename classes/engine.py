@@ -1,4 +1,4 @@
-from .sprites import Player, Wall, all_sprites, walls, items
+from .sprites import Player, Wall, Item, Gardien, all_sprites, walls, items
 import pygame, sys, os
 from .settings import *
 
@@ -24,13 +24,13 @@ class Engine:
                         elif tile == ".": # Chemin
                             pass  
                         elif tile == "G": # Gardien
-                            pass 
+                            Gardien(col, row)
                         elif tile == "S": # Seringue
-                            pass
+                            Item(col, row, "seringue")
                         elif tile == "E": # Ether
-                            pass
+                            self.items = Item(col, row, "ether")
                         elif tile == "A": # Aiguille
-                            pass
+                            self.items = Item(col, row, "aiguille")
 
     def events(self):
         for event in pygame.event.get():

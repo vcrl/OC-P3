@@ -11,6 +11,7 @@ WALL_IMG = "/home/mint/Documents/_Python/OC-P3/img/mur.png"
 ITEMS_IMG = ["/home/mint/Documents/_Python/OC-P3/img/aiguille.png",
              "/home/mint/Documents/_Python/OC-P3/img/ether.png"
              , "/home/mint/Documents/_Python/OC-P3/img/seringue.png"]
+GARDIEN_IMG = "/home/mint/Documents/_Python/OC-P3/img/Gardien.png"
 
 # Couleurs utiles
 WHITE = (255, 255, 255)
