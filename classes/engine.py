@@ -1,42 +1,66 @@
-from .map import Labyrinthe
+from .sprites import Player, Wall, all_sprites, walls, items
+import pygame, sys, os
 from .settings import *
-import pygame
-import sys
 
 class Engine:
     def __init__(self):
-        # Paramètres de la fenêtre
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame.display.set_caption(TITLE)
-        # Gestion du temps
-        self.clock = pygame.time.Clock()
-        # Gestion des sprites
-        self.all_sprites = pygame.sprite.Group()
-        self.walls = pygame.sprite.Group()
-        self.items = pygame.sprite.Group()
-        # Chargement de la map
-        self.map = Labyrinthe(self) #ERREUR ICI: le programme s'arrête ici, sans passer par les méthodes plus bas (donc probable erreur dans classes/map.py)
-
-    def update(self):
-        self.all_sprites.update()
-
-    def draw(self):
-        print("draw")
-        self.all_sprites.draw()
-        pygame.display.flip()
+    
+    def load_map(self):
+        self.player = Player(12, 11)
+        
+        # Chargement de labyrinthe.txt
+        self.map_data = list()
+        current_dir = os.path.dirname(__file__)
+        with open(os.path.join(current_dir, "labyrinthe.txt"), "r") as f:
+            for line in f:
+                self.map_data.append(line)
+                for row, tiles in enumerate(self.map_data):
+                    for col, tile in enumerate(tiles):
+                        if tile == "1": # Mur
+                            self.walls = Wall(col, row)
+                            pass
+                        elif tile == ".": # Chemin
+                            pass  
+                        elif tile == "G": # Gardien
+                            pass 
+                        elif tile == "S": # Seringue
+                            pass
+                        elif tile == "E": # Ether
+                            pass
+                        elif tile == "A": # Aiguille
+                            pass
 
     def events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                self.running = False
                 pygame.quit()
                 sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_z:
+                    self.player.move(dy=-1)
+                if event.key == pygame.K_s:
+                    self.player.move(dy=+1)
+                if event.key == pygame.K_q:
+                    self.player.move(dx=-1)
+                if event.key == pygame.K_d:
+                    self.player.move(dx=1)
+
+    def update(self):
+        all_sprites.update()
+
+    def draw(self):
+        self.screen.fill(BLACK)
+        all_sprites.draw(self.screen)
+        pygame.display.flip()
 
     def run(self):
-        self.running = True
-        while self.running:
+        # Boucle du jeu
+        self.load_map()
+        while True:
+            self.events()
             self.update()
             self.draw()
-            self.events()
-    
-    
+            
+            

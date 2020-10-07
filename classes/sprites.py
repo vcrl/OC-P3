@@ -1,43 +1,41 @@
+import pygame, sys, random
 from .settings import *
-from random import choice
-import pygame
 
+all_sprites = pygame.sprite.Group()
+items = pygame.sprite.Group()
+walls = pygame.sprite.Group()
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, x, y):
-        pygame.sprite.Sprite.__init__(self)
+        self.groups = all_sprites
+        pygame.sprite.Sprite.__init__(self, self.groups)
         self.image = pygame.image.load(PLAYER_IMG)
         self.image = pygame.transform.scale(self.image, (32, 32))
         self.rect = self.image.get_rect()
         self.rect.x = x * TILESIZE
         self.rect.y = y * TILESIZE
-        self.inventory = list()
+        self.inventory = 0
 
-    def addtoInventory(self, item):
-        print(f"{item} ajouté à l'inventaire.")
-        self.inventory.append(item)
+    def move(self, dx=0, dy=0):
+        self.rect.x += dx * TILESIZE
+        self.rect.y += dy * TILESIZE
 
-    def invFull(self):
-        if len(self.inventory) == 3:
-            return True
-        return False
+    def update(self):
+        self.current_x = self.rect.x
+        self.current_y = self.rect.y
 
+        # Ramasser les items
+        collision_items = pygame.sprite.spritecollide(self, items, False)
+        for item in collision_items:
+            item.kill()
+            self.inventory += 1
 
 class Wall(pygame.sprite.Sprite):
     def __init__(self, x, y):
-        pygame.sprite.Sprite.__init__(self)
+        self.groups = all_sprites, walls
+        pygame.sprite.Sprite.__init__(self, self.groups)
         self.image = pygame.image.load(WALL_IMG)
-        self.image = pygame.transform.scale(self.image, (32, 32))
+        #self.image = pygame.transform.scale(self.image, (32, 32))
         self.rect = self.image.get_rect()
         self.rect.x = x * TILESIZE
         self.rect.y = y * TILESIZE
-
-
-class Item(pygame.sprite.Sprite):
-    def __init__(self, x, y):
-        pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load(choice(ITEMS_IMG))
-        self.image = pygame.transform.scale(self.image, (32, 32))
-        self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y

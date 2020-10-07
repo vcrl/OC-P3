@@ -1,6 +1,4 @@
-from .sprites import Player, Wall, Item
-from .settings import *
-import pygame
+from .sprites import Player
 import os
 
 class Labyrinthe():
