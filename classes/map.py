@@ -1,4 +1,4 @@
-from .player import Player
+from .sprites import Player
 import os
 
 class Labyrinthe():
