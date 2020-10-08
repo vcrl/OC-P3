@@ -9,7 +9,6 @@ class Engine:
     
     def load_map(self):
         self.player = Player(12, 11)
-        
         # Chargement de labyrinthe.txt
         self.map_data = list()
         current_dir = os.path.dirname(__file__)
@@ -38,13 +37,13 @@ class Engine:
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_z:
+                if event.key == pygame.K_UP:
                     self.player.move(dy=-1)
-                if event.key == pygame.K_s:
+                if event.key == pygame.K_DOWN:
                     self.player.move(dy=+1)
-                if event.key == pygame.K_q:
+                if event.key == pygame.K_LEFT:
                     self.player.move(dx=-1)
-                if event.key == pygame.K_d:
+                if event.key == pygame.K_RIGHT:
                     self.player.move(dx=1)
 
     def update(self):
