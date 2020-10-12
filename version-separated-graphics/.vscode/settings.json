@@ -1,0 +1,5 @@
+{
+    "python.pythonPath": "/home/mint/Documents/_Python/pygame-env/bin/python3",
+    "python.linting.pylintArgs": ["----extension-pkg-whitelist=1xml"]
+}
+
