@@ -7,9 +7,4 @@ class Player():
     def addtoInventory(self, item):
         print(f"{item} ajouté à l'inventaire.")
         self.inventory += 1
-
-    def invFull(self):
-        if self.inventory != 3:
-            return False
-        else:
-            return True
+        

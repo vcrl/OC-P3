@@ -40,38 +40,43 @@ class Graphics:
     def draw(self):
         self.screen.fill((0, 0, 0))
         for x, y in self.map.map:
-            
+
             if self.map.map[x, y] == "mur":
                 self.mur_img = pygame.image.load(MUR_IMG)
                 self.mur_img = pygame.transform.scale(self.mur_img, (TILESIZE, TILESIZE))
                 self.screen.blit(self.mur_img, (y*TILESIZE, x*TILESIZE))
-            
+
             if self.map.map[x, y] == "player":
                 try:
                     self.player_img.kill()
                 except Exception:
                     self.player_img = pygame.image.load(PLAYER_IMG)
-                    self.player_img = pygame.transform.scale(self.player_img, (TILESIZE, TILESIZE))
+                    self.player_img = pygame.transform.scale(self.player_img,
+                    (TILESIZE, TILESIZE))
                     self.screen.blit(self.player_img, (y*TILESIZE, x*TILESIZE))
-            
+
             if self.map.map[x, y] == "gardien":
                 self.gardien_img = pygame.image.load(GARDIEN_IMG)
-                self.gardien_img = pygame.transform.scale(self.gardien_img, (TILESIZE, TILESIZE))
+                self.gardien_img = pygame.transform.scale(self.gardien_img,
+                (TILESIZE, TILESIZE))
                 self.screen.blit(self.gardien_img, (y*TILESIZE, x*TILESIZE))
-            
+
             if self.map.map[x, y] == "seringue":
                 self.seringue_img = pygame.image.load(SERINGUE_IMG)
-                self.seringue_img = pygame.transform.scale(self.seringue_img, (TILESIZE, TILESIZE))
+                self.seringue_img = pygame.transform.scale(self.seringue_img,
+                (TILESIZE, TILESIZE))
                 self.screen.blit(self.seringue_img, (y*TILESIZE, x*TILESIZE))
-            
+
             if self.map.map[x, y] == "aiguille":
                 self.aiguille_img = pygame.image.load(AIGUILLE_IMG)
-                self.aiguille_img = pygame.transform.scale(self.aiguille_img, (TILESIZE, TILESIZE))
+                self.aiguille_img = pygame.transform.scale(self.aiguille_img,
+                (TILESIZE, TILESIZE))
                 self.screen.blit(self.aiguille_img, (y*TILESIZE, x*TILESIZE))
 
             if self.map.map[x, y] == "ether":
                 self.ether_img = pygame.image.load(ETHER_IMG)
-                self.ether_img = pygame.transform.scale(self.ether_img, (TILESIZE, TILESIZE))
+                self.ether_img = pygame.transform.scale(self.ether_img,
+                (TILESIZE, TILESIZE))
                 self.screen.blit(self.ether_img, (y*TILESIZE, x*TILESIZE))
         pygame.display.update()
         pygame.display.flip()

@@ -1,6 +1,6 @@
+import os, sys, random, time
 from .player import Player
 from .constantes import *
-import os, sys, random, time
 
 class Labyrinthe():
     def __init__(self):
@@ -18,7 +18,7 @@ class Labyrinthe():
             rand_x = random.randint(1, 14)
             rand_y = random.randint(1, 14)
             aiguille = False
-            
+
             if self.map[rand_x, rand_y] == "chemin":
                 #aiguille = False
                 #if not ether:
@@ -26,12 +26,11 @@ class Labyrinthe():
                 aiguille_spawned += 1
                 aiguille = True
                 print("aiguille spawned")
-        
+
         while seringue_spawned < 1:
             rand_x = random.randint(1, 14)
             rand_y = random.randint(1, 14)
             seringue = False
-            
             if self.map[rand_x, rand_y] == "chemin":
                 #aiguille = False
                 #if not ether:
@@ -44,7 +43,7 @@ class Labyrinthe():
             rand_x = random.randint(1, 14)
             rand_y = random.randint(1, 14)
             ether = False
-            
+
             if self.map[rand_x, rand_y] == "chemin":
                 #aiguille = False
                 #if not ether:
@@ -61,21 +60,21 @@ class Labyrinthe():
                 for row, tiles in enumerate(self.map_data):
                     for col, tile in enumerate(tiles):
                         if tile == "1": # Mur
-                            self.map[row, col] = "mur" 
+                            self.map[row, col] = "mur"
                         elif tile == ".": # Chemin
-                            self.map[row, col] = "chemin" 
+                            self.map[row, col] = "chemin"
                         elif tile == "P": # McGyver
                             self.player = Player(row, col)
-                            self.map[row, col] = "player" 
+                            self.map[row, col] = "player"
                         elif tile == "G": # Gardien
-                            self.map[row, col] = "gardien" 
+                            self.map[row, col] = "gardien"
 
         self.spawn_items()
 
     def moveTo(self, dx=0, dy=0):
         dir_x = self.player.x + dx
         dir_y = self.player.y + dy
-        
+
         if self.map[dir_x, dir_y] == "seringue":
             self.player.addtoInventory("seringue")
 
@@ -84,7 +83,7 @@ class Labyrinthe():
 
         if self.map[dir_x, dir_y] == "aiguille":
             self.player.addtoInventory("aiguille")
-        
+
         if self.map[dir_x, dir_y] == "gardien":
             if self.player.inventory < 3:
                 print("Perdu !")
@@ -97,7 +96,7 @@ class Labyrinthe():
 
         if self.map[dir_x, dir_y] != "mur":
             self.map[self.player.x, self.player.y] = "chemin"
-            self.map[self.player.x + dx, self.player.y + dy] = "player"#self.map.pop((self.player.x, self.player.y), False)
+            self.map[self.player.x + dx, self.player.y + dy] = "player"
             self.player.x += dx
             self.player.y += dy
 
