@@ -1,3 +1,6 @@
+"""
+Moteur du jeu
+"""
 from .pygame_graphics import Graphics
 from .map import Labyrinthe
 

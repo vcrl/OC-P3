@@ -1,8 +1,18 @@
-import os, sys, random, time
+"""
+Fichier map, contenant les classes qui
+génèrent la carte du jeu
+"""
+import os
+import sys
+import random
+import time
 from .player import Player
-from .constantes import *
+from .constantes import WIDTH, HEIGHT, TILESIZE
 
 class Labyrinthe():
+    """
+    Classe générant la carte
+    """
     def __init__(self):
         self.map = dict()
         self.map_data = list()
@@ -11,6 +21,9 @@ class Labyrinthe():
         self.loadMap()
 
     def spawn_items(self):
+        """
+        Spawn des items sur la carte
+        """
         aiguille_spawned = 0
         seringue_spawned = 0
         ether_spawned = 0
@@ -53,6 +66,9 @@ class Labyrinthe():
                 print("ether spawned")
 
     def loadMap(self):
+        """
+        Chargement du fichier labyrinthe.txt
+        """
         current_dir = os.path.dirname(__file__)
         with open(os.path.join(current_dir, "labyrinthe.txt"), "r") as f:
             for line in f:
@@ -72,6 +88,10 @@ class Labyrinthe():
         self.spawn_items()
 
     def moveTo(self, dx=0, dy=0):
+        """
+        Check les déplacements du joueur
+        (si il marche sur un objet, etc)
+        """
         dir_x = self.player.x + dx
         dir_y = self.player.y + dy
 
@@ -101,6 +121,9 @@ class Labyrinthe():
             self.player.y += dy
 
     def movePlayer(self, key):
+        """
+        Déplacement du joueur
+        """
         if key == "q":
             self.moveTo(dy=-1)
             print(self.player.x, self.player.y)

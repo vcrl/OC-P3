@@ -1,3 +1,7 @@
+"""
+Classe "Player", contenant les caractéristiques
+du joueur
+"""
 class Player():
     def __init__(self, x, y):
         self.x = x
