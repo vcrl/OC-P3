@@ -1,5 +1,5 @@
 # Aidez MacGyver à s'échapper !
-Projet 3, Développeur d'Application Python - réalisé par Vincent Ruelle
+Un jeu simple en 2D réalisé avec Python et Pygame.
 
 ## Contexte
 Afin d'évaluer nos compétences en Python, on nous a demandé de développer un jeu-vidéo simple utilisant la librarie Pygame. 
