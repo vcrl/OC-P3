@@ -1,9 +1,6 @@
 # Aidez MacGyver à s'échapper !
 Un jeu simple en 2D réalisé avec Python et Pygame.
 
-## Contexte
-Afin d'évaluer nos compétences en Python, on nous a demandé de développer un jeu-vidéo simple utilisant la librarie Pygame. 
-
 ## Pré-requis
 
 Pour jouer au jeu, vous devez avoir Python 3+ d'installé sur votre machine, ainsi qu'un environnement virtuel où la librarie
